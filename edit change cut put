@@ -1,4 +1,79 @@
-#include <stdio.h>
-void main()
-printf("HELLO MANUSHYA")
-return0
+class ACC  //to get into the programme
+{
+      char Uname[20],Upassword[20];
+	  
+  public:
+  
+	  void getaccount()
+	  {
+		  cout<<"\nEnter User name   :"; gets(Uname);
+		  cout<<"\nEnter a Password  :"; get(Upassword);
+	  }
+	  
+      int compname(char Name[])    {    return (strcmp(Name,Uname));    }
+      int comppass(char password[]){return (strcmp(password,Upassword));}
+      void view()                  {    cout<<Upassword<<"_"<<Uname;    }
+
+};
+
+void writeacc() //to write login account details
+{
+	ACC A;
+	ofstream fout("account.DAT",ios::binary|ios::out|ios::app);
+	if(!fout){cout<<"FILE NOT OPENED CORRECTLY"; getch(); return;}
+	A.getaccount();
+	fout.write((char*)&A,sizeof(A));
+	fout.close();
+}
+
+
+void readacc()  //to login account
+{
+	clrscr();
+	ACC A;
+	char UACname[20],UACpassword[20];
+	ifstream fin("account.DAT",ios::binary|ios::in);
+	if(!fin){cout<<"FILE NOT OPENED CORRECTLY"; getch(); return;}
+	cout<<"\nEnter User Name : ";   gets(UACname);
+	while(fin.read((char*)&A,sizeof(A)))
+	    {
+
+		   if(A.compname(UACname)==0)
+		    {
+			   for(int i=0;i<3;i++)
+		        {
+
+			        cout<<"\nEnter Your Password : ";  gets(UACpassword);
+					if(A.comppass(UACpassword)==0)
+					{ flag=0; return; }
+
+					cout<<"WRONG PASSWORD :: RE-ENTER PASSWORD"; getch();
+			    }
+			   clrscr();
+		       cout<<"\nYOU HAVE ENTERED PASSWORD MAXIMUM NUMBER NUMBER OF TIMES";
+		       cout<<"\n\nPLEASE LOGIN AGAIN";
+		       getch();fin.close();
+		    }
+ 		   
+		   else
+			   cout<<"ACCOUNT DOESNOT EXIST";
+         
+	    }
+    getch();
+}
+int loginmenu() //used in: to login programme
+{
+	clrscr();
+	char ch;
+	cout<<"\n\n\n";
+    cout<<"\t\t\t..........................."<<endl;
+	cout<<"\t\t\t:                         :"<<endl;
+	cout<<"\t\t\t:  1. CREATE NEW ACCONT   :"<<endl;
+	cout<<"\t\t\t:  2. LOGIN ACCOUNT       :"<<endl;
+	cout<<"\t\t\t:  3. EXIT                :"<<endl;
+	cout<<"\t\t\t:.........................:"<<endl;
+	cout<<"\n\n\t\t\tEnter Your choice(1,2,3): ";
+	cin>>ch;
+	return ch;
+}
+
