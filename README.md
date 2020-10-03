@@ -11,19 +11,20 @@ public class Solution {
         int n=scan.nextInt();
         int a[]=new int[100];
         int index=-1;
-        
+        index=-1;
+        //Entering the values in the array
         for(int i=0;i<n;i++){
             a[i]=scan.nextInt();
         }
         
         int x=scan.nextInt();
-        
+        //Sorting the array
         for(int i=0;i<n;i++){
             for(int j=0;j<n-i-1;j++){
                 if(a[j]>a[j+1]){
-                    int temp=a[j];
+                    int tem=a[j];
                     a[j]=a[j+1];
-                    a[j+1]=temp;
+                    a[j+1]=tem;
                 }
             }
         }
@@ -45,8 +46,8 @@ public class Solution {
             }
         }
   
-
-       System.out.println(index);
+//Printing the middele number
+       System.out.printf("%d",index);
 
     }
 }
